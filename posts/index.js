@@ -9,31 +9,16 @@ app.use(express.json())
 const posts = {}
 
 app.get('/posts',(req,res)=>{
-    console.log('req: ', req);
     res.send(posts)
 }) 
 
 app.post('/posts',(req,res)=>{
-    const id = randomBytes(4).toString('hex')
-    const {title} = req.body
-
-    posts[id]={
+    const id  = randomBytes(4).toString('hex');
+    const {title} = req.body;
+    posts[id] = {
         id,title
     }
-
-    res.send(posts)
-
-    // {
-    //     "dcfbb8c0": {
-    //         "id": "dcfbb8c0",
-    //         "title": "My first Post"
-    //     },
-    //     "f4477b7e": {
-    //         "id": "f4477b7e",
-    //         "title": "My second Post"
-    //     }
-    // }
-
+    res.status(201).send(posts[id])
 })
 
 app.listen(4000,()=>{
